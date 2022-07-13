@@ -29,6 +29,7 @@ function devolverString(str) {
   // "Return" la string provista: str
   // Tu código:
   return(str)
+   
   
 }
 
@@ -62,8 +63,8 @@ function divide(x, y) {
 function sonIguales(x, y) {
   // Devuelve "true" si "x" e "y" son iguales
   // De lo contrario, devuelve "false"
-  // Tu código:
-  return(x==y)
+  // Tu código
+  return(x===y)
 }
 
 function tienenMismaLongitud(str1, str2) {
@@ -97,7 +98,7 @@ function mayorQueCincuenta(num) {
 function obtenerResto(x, y) {
   // Obten el resto de la división de "x" entre "y"
   // Tu código:
-  return (x/y)- Math.floor(x/y)
+  return (x%y)
 }
 
 function esPar(num) {
@@ -159,11 +160,11 @@ function esPositivo(numero) {
   //Si el número es negativo, devolver ---> "Es negativo"
   //Si el número es 0, devuelve false
   if(numero>0){ 
-    console.log ("Es positivo");
+    return ("Es positivo");
   } else if   (numero<0){ 
-    console.log("Es negativo")
+    return ("Es negativo")
   } else {  
-    console.log(false)
+    return (false)
   }
 }
 
@@ -224,11 +225,11 @@ function esVocal(letra){
   // Si no es vocal, tambien debe devolver "Dato incorrecto".
   //Escribe tu código aquí
   if(letra.length>1){ 
-    console.log ("Dato incorrecto");
+    return ("Dato incorrecto");
   } else if   (letra=== "a"||letra=== "A"||letra=== "e"||letra=== "E"||letra=== "i"||letra=== "I"||letra=== "o"||letra=== "O"||letra=== "u"||letra=== "U"){ 
-    console.log("Es vocal")
+    return ("Es vocal")
   } else {  
-    console.log("Dato incorrecto")
+     return ("Dato incorrecto")
   }
 }
 
