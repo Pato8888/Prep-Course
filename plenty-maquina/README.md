@@ -80,6 +80,16 @@ En una PC siempre prendida o en un servidor chico (VPS de USD 5–6 por mes) con
 
 Esto instala dos tareas: a las 03:00 (hora de Córdoba) genera los videos del día, y cada 15 minutos publica los aprobados.
 
+## Estilo de edición
+
+Los videos siguen el estilo explicativo del video de referencia:
+- **Fondo y acentos:** fondo casi negro con un resplandor azul en el centro, y acentos en ámbar (y rojo para lo negativo).
+- **Subtítulos arriba:** la frase se arma palabra por palabra. Las palabras clave aparecen en blanco y negrita, con un recuadro.
+- **Infografía en el centro:** el colchón por zonas que se iluminan, un gráfico que sube o baja, pasos numerados, una comparación "así no / así sí" o un ícono grande.
+- **Etiquetas y sellos:** etiquetas tipo píldora y sellos rojos para el golpe dramático. El cierre es "Guardalo" más el botón de WhatsApp.
+
+Claude elige qué recurso usar en cada escena (ver `maquina/guion.py`). Los colores se cambian en `config.toml`.
+
 ## Costos aproximados por video
 
 | Paso | Costo |

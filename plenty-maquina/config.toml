@@ -16,9 +16,10 @@ propuesta_valor = [
   "Cuotas y promos bancarias",
 ]
 llamado_a_la_accion = "Escribinos por WhatsApp y te asesoramos gratis"
-color_primario = "#1E3A8A"
-color_secundario = "#F59E0B"
-color_texto = "#FFFFFF"
+color_fondo = "#070B16"       # fondo casi negro
+color_primario = "#1E40AF"    # resplandor azul del centro
+color_secundario = "#F5A524"  # acento ámbar (palabras clave, píldoras, zonas)
+color_alerta = "#E5484D"      # rojo para sellos y lo negativo
 
 # ------------------------------------------------------------
 # 1) BÚSQUEDA DE REELS VIRALES DEL NICHO
@@ -62,8 +63,6 @@ velocidad_palabras_seg = 2.7  # solo para estimar tiempos en modo prueba
 ancho = 1080
 alto = 1920
 fps = 30
-fuente = "/usr/share/fonts/opentype/inter/Inter-Black.otf"
-fuente_subtitulos = "Inter Black"
 imagenes_productos = "assets/productos"   # fotos de colchones (jpg/png)
 logo = ""                                  # ruta al logo PNG (opcional)
 

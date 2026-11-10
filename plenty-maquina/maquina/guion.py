@@ -10,10 +10,19 @@ from .comun import env, log
 
 
 class Escena(BaseModel):
-    narracion: str = Field(description="Lo que dice la voz en off. Frases cortas, español rioplatense/cordobés.")
-    texto_pantalla: str = Field(description="Texto grande en pantalla, máximo 6 palabras.")
-    visual: Literal["gancho", "producto", "lista", "comparacion", "cta"]
-    items: list[str] = Field(default_factory=list, description="Solo para 'lista' o 'comparacion': 2 a 4 ítems cortos.")
+    narracion: str = Field(description="Voz en off de la escena: UNA frase corta (máx. 18 palabras), voseo cordobés.")
+    palabras_clave: list[str] = Field(description="1 a 3 palabras de la narración que se destacan en blanco y con recuadro.")
+    visual: Literal["titulo", "colchon", "grafico", "comparacion", "pasos", "icono", "producto", "cta"]
+    texto_pantalla: str = Field(description="Para 'titulo' y 'cta': texto grande (máx. 6 palabras). En otros visuales, resumen corto.")
+    items: list[str] = Field(default_factory=list, description=(
+        "colchon: zonas a iluminar en orden (Cabeza, Hombros, Lumbar, Cadera, Piernas). "
+        "grafico: etiquetas del eje X. pasos: 2 a 4 pasos cortos. "
+        "comparacion: [titulo malo, titulo bueno, resultado malo, resultado bueno]."))
+    datos: list[float] = Field(default_factory=list, description="Solo 'grafico': 4 a 7 valores (bajan = rojo, suben = ámbar).")
+    tono: Literal["bueno", "malo"] = Field(default="bueno", description="'malo' pinta de rojo las zonas del colchón.")
+    icono: Literal["", "pausa", "ojo", "check", "cruz", "alerta", "guardar", "luna", "reloj", "dolor", "cama"] = ""
+    etiqueta: str = Field(default="", description="Píldora ámbar debajo del visual, p. ej. '2 · Tu postura'. Opcional.")
+    sello: str = Field(default="", description="Sello rojo que cae sobre la escena (1 o 2 palabras, p. ej. 'SE HUNDE'). Usar poco.")
 
 
 class Guion(BaseModel):
@@ -48,7 +57,15 @@ Reglas:
 - La primera escena es un gancho fuerte de máximo 3 segundos (≈8 palabras): curiosidad, dolor concreto o afirmación sorprendente.
 - Duración total ≈ {duracion} segundos (≈{palabras} palabras de narración en total).
 - Frases cortas, fáciles de leer en subtítulos. Voseo. Nada de promesas médicas ni precios inventados.
-- Entre 4 y 7 escenas. La última escena es visual "cta" y menciona WhatsApp o visitar el local en {ciudad}.
+- Entre 6 y 9 escenas, cada una de UNA frase. La última es visual "cta" (texto_pantalla tipo "Guardalo" o
+  "Escribinos") y menciona WhatsApp o el local en {ciudad}.
+
+Estilo visual (videos explicativos tipo infografía, fondo oscuro, acentos ámbar y rojo):
+- Explicá con un concepto visual que se va construyendo: el colchón dividido en zonas que se iluminan, un gráfico que
+  sube o baja, pasos numerados, una comparación "así no / así sí", un ícono grande.
+- Reusá el mismo visual en escenas seguidas para que la idea avance (p. ej. el colchón iluminando zonas distintas).
+- Usá "sello" para el golpe dramático (máx. 1 o 2 por video) y "comparacion" para el cierre antes del CTA.
+- Si mencionás una idea con nombre (un estudio, una regla), presentala con visual "titulo".
 """
 
 
@@ -91,22 +108,32 @@ def escribir_guiones(referencias: list[dict], cfg: dict, cantidad: int, prueba: 
 
 def _ejemplo(cfg: dict, cantidad: int) -> Resultado:
     m = cfg["marca"]
+    E = Escena
     guion = Guion(
-        titulo="3 señales de que tu colchón ya no da más",
+        titulo="Tu colchón te está avisando",
         referencia_url="https://www.instagram.com/reel/EJEMPLO1/",
-        estructura_usada="gancho de dolor → lista de 3 señales → solución → CTA",
+        estructura_usada="gancho de dolor → concepto visual que se construye → pasos → comparación → guardalo",
         escenas=[
-            Escena(narracion="Si te levantás más cansado de lo que te acostaste, escuchá esto.",
-                   texto_pantalla="¿Te levantás cansado?", visual="gancho"),
-            Escena(narracion="Hay tres señales de que tu colchón ya cumplió su ciclo.",
-                   texto_pantalla="3 señales", visual="lista",
-                   items=["Se hunde en el medio", "Te despertás con dolor", "Dormís mejor en otro lado"]),
-            Escena(narracion="Si se hunde en el medio, te levantás con dolor, o dormís mejor en cualquier otro lado, es hora de cambiarlo.",
-                   texto_pantalla="Es hora de cambiarlo", visual="producto"),
-            Escena(narracion=f"En {m['nombre']} te ayudamos a elegir el ideal según tu peso y tu postura.",
-                   texto_pantalla="Asesoramiento gratis", visual="producto"),
-            Escena(narracion="Escribinos por WhatsApp y te asesoramos sin compromiso.",
-                   texto_pantalla="Escribinos por WhatsApp", visual="cta"),
+            E(narracion="Si te levantás con dolor de espalda, el problema no es la almohada.",
+              palabras_clave=["dolor", "almohada"], visual="colchon", texto_pantalla="Dolor de espalda",
+              items=["Lumbar"], tono="malo", sello="NO ES ESO"),
+            E(narracion="Un colchón vencido se hunde justo donde apoyás la cadera.",
+              palabras_clave=["hunde", "cadera"], visual="colchon", texto_pantalla="Se hunde",
+              items=["Cadera", "Lumbar"], tono="malo", etiqueta="Zona crítica"),
+            E(narracion="Y cada noche descansás un poco peor que la anterior.",
+              palabras_clave=["peor"], visual="grafico", texto_pantalla="Cada vez peor",
+              datos=[9, 8, 6.5, 5.5, 4, 3.2], items=["Año 1", "", "", "", "", "Año 8"], etiqueta="Calidad de descanso"),
+            E(narracion="Para elegir bien, mirá tu peso, tu postura, y probalo acostado.",
+              palabras_clave=["peso", "postura", "acostado"], visual="pasos", texto_pantalla="3 pasos",
+              items=["Tu peso", "Tu postura", "Probalo acostado"]),
+            E(narracion="Frená, no te apures, y acostate cinco minutos de verdad.",
+              palabras_clave=["frená", "cinco minutos"], visual="icono", icono="pausa", texto_pantalla="Frená",
+              etiqueta="5 minutos"),
+            E(narracion="Mismo cuerpo, otro colchón: te levantás con otra energía.",
+              palabras_clave=["otro colchón", "energía"], visual="comparacion", texto_pantalla="Mismo cuerpo",
+              items=["Colchón vencido", "Colchón ideal", "Te levantás cansado", "Te levantás nuevo"]),
+            E(narracion="Guardalo, y escribinos por WhatsApp: te asesoramos gratis.",
+              palabras_clave=["guardalo", "gratis"], visual="cta", icono="guardar", texto_pantalla="Guardalo"),
         ],
         caption=f"¿Tu colchón te está avisando algo? 😴 Te asesoramos gratis por WhatsApp 📲 {m['whatsapp']}",
         hashtags=["colchones", "cordoba", "descanso", "dormirbien"],
