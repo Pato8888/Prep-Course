@@ -1,0 +1,77 @@
+# ============================================================
+#  MÁQUINA DE CONTENIDO — Plenty Colchones Córdoba
+#  Editá este archivo para ajustar el sistema. No hace falta tocar código.
+# ============================================================
+
+[marca]
+nombre = "Plenty Colchones"
+ciudad = "Córdoba"
+instagram = "@plentycolchones"          # ajustar al usuario real
+whatsapp = "+54 9 351 000-0000"          # ajustar
+direccion = "Córdoba Capital"            # ajustar: dirección del local
+tono = "cercano, cordobés, con humor suave, experto en descanso; nunca agresivo"
+propuesta_valor = [
+  "Colchones y sommiers con envío en Córdoba",
+  "Asesoramiento para elegir el colchón según peso, postura y dolores",
+  "Cuotas y promos bancarias",
+]
+llamado_a_la_accion = "Escribinos por WhatsApp y te asesoramos gratis"
+color_primario = "#1E3A8A"
+color_secundario = "#F59E0B"
+color_texto = "#FFFFFF"
+
+# ------------------------------------------------------------
+# 1) BÚSQUEDA DE REELS VIRALES DEL NICHO
+# ------------------------------------------------------------
+[busqueda]
+cantidad = 30                 # cuántos reels analizar por día
+dias_maximos = 30             # solo reels publicados en los últimos N días
+vistas_minimas = 20000
+hashtags = ["colchones", "colchon", "descanso", "dormirbien", "sommier", "dolordeespalda", "decoracionhogar"]
+# Cuentas de referencia (marcas de colchones, dormitorio, kinesiólogos del sueño, etc.)
+cuentas = []
+# Pesos del puntaje viral (se normalizan solos)
+peso_vistas = 0.45
+peso_interaccion = 0.35       # (likes + 3*comentarios) / vistas
+peso_recencia = 0.20
+referencias_a_usar = 5        # de los 30, cuántos se usan como referencia de guion
+
+# ------------------------------------------------------------
+# 2) GENERACIÓN
+# ------------------------------------------------------------
+[generacion]
+videos_por_dia = 3
+modelo = "claude-opus-5-5"
+duracion_objetivo_seg = 30
+# Ideas fijas que el sistema puede rotar cuando no hay buenas referencias
+temas = [
+  "cómo elegir el colchón según tu peso",
+  "señales de que tu colchón ya no da más",
+  "resortes vs espuma: cuál conviene",
+  "por qué te levantás con dolor de espalda",
+  "errores comunes al comprar un colchón",
+  "cuánto dura un colchón de verdad",
+]
+
+[voz]
+proveedor = "elevenlabs"      # "elevenlabs" o "silencio" (para pruebas)
+modelo = "eleven_multilingual_v2"
+velocidad_palabras_seg = 2.7  # solo para estimar tiempos en modo prueba
+
+[video]
+ancho = 1080
+alto = 1920
+fps = 30
+fuente = "/usr/share/fonts/opentype/inter/Inter-Black.otf"
+fuente_subtitulos = "Inter Black"
+imagenes_productos = "assets/productos"   # fotos de colchones (jpg/png)
+logo = ""                                  # ruta al logo PNG (opcional)
+
+# ------------------------------------------------------------
+# 3) APROBACIÓN Y AGENDA
+# ------------------------------------------------------------
+[agenda]
+zona_horaria = "America/Argentina/Cordoba"
+horarios = ["12:30", "19:00", "21:30"]    # horarios de publicación diarios
+requiere_aprobacion = true                 # true = nada se publica sin tu OK
+redes = ["instagram", "facebook", "tiktok"]
