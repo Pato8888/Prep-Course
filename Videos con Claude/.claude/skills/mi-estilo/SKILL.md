@@ -10,7 +10,7 @@ Inspirado en los mejores Reels de @_duo0 (referencias en `referencias/`), pero e
 ## Look
 - Salida: MP4 vertical 1080x1920, 30 fps, H.264, audio AAC.
 - Luz natural, sin filtros fuertes. Como mucho un retoque leve de brillo/contraste para que todos los clips se vean parejos.
-- Paleta: **rosa Duo0 #D86E98** + **blanco**. Nada más.
+- Paleta: **rosa Duo0 #D8779A** + **blanco**. Nada más.
 - Tipografía: **Montserrat**.
   - Hook: línea 1 ExtraBold 68 px, línea 2 Regular 56 px, blanco con sombra suave.
   - Subtítulos: Bold 54 px, blanco, sombra oscura suave, máx. 2 líneas de ~6 palabras.
@@ -32,8 +32,8 @@ Inspirado en los mejores Reels de @_duo0 (referencias en `referencias/`), pero e
 
 ## Gráficos recurrentes
 - Reloj (ej. 10:00 → 11:00) en caja blanca con texto rosa, para videos de "una hora" / "en X horas".
-- Marca de agua "DUO0" chica, 40% de opacidad, esquina superior.
-- Placa final rosa #D86E98 con el logo DUO0 en blanco, 1 segundo, en todos los videos.
+- Marca de agua: logo oficial (`duo0-audio/logo-duo0-blanco.png`, de duo0.co/brand) a 170 px de ancho, 40% de opacidad, esquina superior izquierda.
+- Placa final rosa #D8779A con el logo oficial en blanco + "duo0.co", 1 segundo, en todos los videos.
 - Emojis: máximo 1 por texto, solo 🧹🧽✨.
 
 ## Audio
@@ -51,3 +51,7 @@ Inspirado en los mejores Reels de @_duo0 (referencias en `referencias/`), pero e
 - Frases genéricas ("viví la diferencia", "limpieza, confianza y atención…").
 - Humor a costa del equipo.
 - Personas hechas con IA. Higgsfield solo para animar fotos reales del equipo de Duo0.
+
+## Voz en off
+- Decir la marca como "Dúo" (nunca "Dúo cero").
+- Palabra clave del CTA con pausa antes: "Comentá la palabra: hora."
