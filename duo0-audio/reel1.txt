@@ -1,0 +1,9 @@
+Una hora. Dos personas. Mirá lo que entra.
+Son las diez en punto.
+Baño, {{minutos reales}}.
+Cocina, {{minutos reales}}.
+Living y pisos, {{minutos reales}}.
+Once en punto. Listo.
+Una hora de Duo0 son 31.000 pesos y vienen dos.
+Vos elegís qué se limpia en esa hora.
+Comentá HORA y te paso cómo reservar.
