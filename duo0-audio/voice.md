@@ -18,6 +18,7 @@
 - Palabras propias: "un Duo0", "on demand", "impecable", "de a dos", "lo pedís hoy y hoy están".
 - Evitar: frases genéricas de servicio ("limpieza, confianza y atención en cada detalle", "viví la diferencia"), tips sin dato, captions de puros emojis.
 - Emoji: moderado, 1-3 por caption, nunca primer carácter.
+- Voz en off (ElevenLabs): Argie - Warm Argentine Female Voice, voice_id arMlPrYpUo1XH5F2zM6R, modelo eleven_multilingual_v2 (stability 0.45, similarity 0.8, style 0.3)
 - Cámara: hasta ahora mayormente sin cara, memes y videos del equipo. {{confirmar quién puede salir a cámara}}
 
 ## Posiciones (de donde salen los mejores reels)
