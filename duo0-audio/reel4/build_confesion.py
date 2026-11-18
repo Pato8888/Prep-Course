@@ -31,7 +31,7 @@ def card(name, lines, y, emoji=None):
     im.save(T+name+'.png'); return T+name+'.png'
 EB80,EB68,B56=font('ExtraBold',84),font('ExtraBold',68),font('Bold',56)
 wm=Image.new('RGBA',(W,H),(0,0,0,0)); lg=Image.open(LOGO_W); lg=lg.resize((170,round(170*lg.height/lg.width))); lg.putalpha(lg.split()[3].point(lambda v:int(v*0.4))); wm.paste(lg,(70,250),lg); wm.save(T+'wm.png')
-ov=[(card('hook',[('Nadie lo admite,',EB68),('pero todos limpiamos',B56),('antes de que llegue',B56),('la que limpia',B56)],300),0,3.0),
+ov=[(card('hook',[('Nadie lo admite,',EB68),('pero todos limpiamos',B56),('antes de que llegue',B56),('la que limpia',B56)],345),0,3.0),
     (card('juro',[('Te juro que',EB68),('no hace falta.',EB68)],420),3.0,7.0),
     (card('dos',[('Para eso vienen dos',EB68)],420,emoji='✨'),7.0,END),
     (T+'wm.png',0,END)]
