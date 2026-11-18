@@ -19,7 +19,7 @@ for i,(s,ss,d) in enumerate(shots):
     run(['ffmpeg','-v','error','-y','-ss',str(ss),'-i',s,'-t',str(d),'-an','-vf',f'scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},fps={FPS},format=yuv420p,eq=brightness=0.01:contrast=1.03','-c:v','libx264','-crf','18','-preset','fast',o])
 ec=Image.new('RGB',(W,H),PINK); lg=Image.open(LOGO_W); lg=lg.resize((640,round(640*lg.height/lg.width))); ec.paste(lg,((W-640)//2,H//2-40-lg.height//2),lg)
 ImageDraw.Draw(ec).text((W/2,H/2+110),'duo0.co',font=font('Regular',54),fill='white',anchor='mm'); ec.save(T+'endcard.png')
-run(['ffmpeg','-v','error','-y','-loop','1','-i',T+'endcard.png','-t','1.0','-vf',f'fps={FPS},format=yuv420p','-c:v','libx264','-crf','18',T+'s99.mp4']); parts.append(T+'s99.mp4')
+
 open(T+'list.txt','w').write(''.join(f"file '{p}'\n" for p in parts))
 run(['ffmpeg','-v','error','-y','-f','concat','-safe','0','-i',T+'list.txt','-c','copy',T+'base.mp4'])
 def card(name, lines, y, box=None):
@@ -34,8 +34,9 @@ def card(name, lines, y, box=None):
         for txt,fnt in lines: d.text((W/2,yy),txt,font=fnt,fill='white',anchor='mm'); yy+=fnt.size*1.25
     im.save(T+name+'.png'); return T+name+'.png'
 EB,EB68,R56,B54=font('ExtraBold',76),font('ExtraBold',68),font('Bold',54),font('Bold',54)
-HOOKS={'A':[('Discutir quién limpia',EB),('el baño:',EB),('3 días sin hablarse',R56)],
+HOOKS_ALL={'A':[('Discutir quién limpia',EB),('el baño:',EB),('3 días sin hablarse',R56)],
        'B':[('¿Quién limpia',EB),('el baño hoy?',EB),('Spoiler: ninguno de los dos',R56)]}
+HOOKS={'A':HOOKS_ALL['A']}
 wm=Image.new('RGBA',(W,H),(0,0,0,0)); lg=Image.open(LOGO_W); lg=lg.resize((170,round(170*lg.height/lg.width))); lg.putalpha(lg.split()[3].point(lambda v:int(v*0.4))); wm.paste(lg,(70,250),lg); wm.save(T+'wm.png')
 for v,hook in HOOKS.items():
     ov=[(card('hook'+v,hook,400),0,3.5),
@@ -47,14 +48,14 @@ for v,hook in HOOKS.items():
     for i,(p,a,b) in enumerate(ov):
         inp+=['-i',p]; fc+=f"[{last}][{i+1}:v]overlay=0:0:enable='between(t,{a},{b})'[v{i}];"; last=f'v{i}'
     inp+=['-i',R+'musica.mp3']; n=len(ov)+1
-    fc+=f"[{n}:a]atrim=0:{END+1.0},afade=t=out:st={END+0.2}:d=0.8,apad=whole_dur={END+1.0},loudnorm=I=-14:TP=-1.5:LRA=11[a]"
+    fc+=f"[{n}:a]atrim=0:{END},afade=t=out:st={END-1.6}:d=1.6,loudnorm=I=-14:TP=-1.5:LRA=11[a]"
     tmp=T+f'v{v}.mp4'
-    run(['ffmpeg','-v','error','-y',*inp,'-filter_complex',fc,'-map',f'[{last}]','-map','[a]','-t',str(END+1.0),'-c:v','libx264','-crf','19','-preset','medium','-pix_fmt','yuv420p','-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart',tmp])
+    run(['ffmpeg','-v','error','-y',*inp,'-filter_complex',fc,'-map',f'[{last}]','-map','[a]','-t',str(END),'-c:v','libx264','-crf','19','-preset','medium','-pix_fmt','yuv420p','-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart',tmp])
     # second-pass loudness
     import json,re
     m=subprocess.run(['ffmpeg','-nostats','-i',tmp,'-af','loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json','-f','null','-'],capture_output=True,text=True).stderr
     d=json.loads(m[m.rindex('{'):m.rindex('}')+1])
     P=f"measured_I={d['input_i']}:measured_TP={d['input_tp']}:measured_LRA={d['input_lra']}:measured_thresh={d['input_thresh']}:offset={d['target_offset']}"
-    out=OUT+f'duo0-reel2-bano-{v}.mp4'
+    out=OUT+f'duo0-reel2-bano-{v}-v2.mp4'
     run(['ffmpeg','-v','error','-y','-i',tmp,'-c:v','copy','-af',f'loudnorm=I=-14:TP=-1.5:LRA=11:{P}:linear=true','-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart',out])
     print('ok',out)
